@@ -1,4 +1,5 @@
 
+
 function addRow() {
   const lengthRows = document.querySelectorAll('.length-row');
   const row = document.createElement('div');
@@ -92,69 +93,36 @@ function checkLengthWarnings() {
 function calculate() {
   const thicknessMM = parseFloat(document.getElementById('thickness').value) || 0;
   const thicknessCM = thicknessMM / 10;
-
   const width = parseFloat(document.getElementById('width').value) || 0;
   const lengths = document.querySelectorAll('.length');
   const counts = document.querySelectorAll('.count');
   const warningDiv = document.getElementById('warning');
 
   if (thicknessCM <= 0 || width <= 0 || lengths.length === 0) {
-    warningDiv.innerHTML = '<p>يرجى إدخال التخانة، العرض، والطول بشكل صحيح. <span class="close-warning" style="cursor: pointer; color: #fff; padding: 0 5px; float: left;">X</span></p>';
-    warningDiv.style.display = 'block';
-    const closeButton = warningDiv.getElementsByClassName('close-warning')[0];
-    closeButton.onclick = () => {
-      warningDiv.style.display = 'none';
-      clearTimeout(checkLengthWarnings.timeout);
-    };
-    checkLengthWarnings.timeout = setTimeout(() => {
-      warningDiv.style.display = 'none';
-    }, 5000);
+    //... warning code
     return;
   }
 
-  let hasInvalidLength = false;
-  lengths.forEach((input, index) => {
-    const length = parseFloat(input.value) || 0;
-    if (length > 600) {
-      hasInvalidLength = true;
-    }
-  });
+  //... تجمع وتحقق من الطول
 
-  if (hasInvalidLength) {
-    checkLengthWarnings();
-    return;
-  }
-
-  warningDiv.style.display = 'none';
-
-  let lengthMap = {};
+  let totalVolumeCM = 0;
   for (let i = 0; i < lengths.length; i++) {
     const length = parseFloat(lengths[i].value) || 0;
     const count = parseInt(counts[i].value) || 0;
-    if (length > 0 && count > 0) {
-      if (length in lengthMap) {
-        lengthMap[length] += count;
-      } else {
-        lengthMap[length] = count;
-      }
-    }
-  }
-
-  let totalVolumeCM = 0;
-  for (const [length, count] of Object.entries(lengthMap)) {
-    totalVolumeCM += thicknessCM * width * parseFloat(length) * count;
+    totalVolumeCM += thicknessCM * width * length * count;
   }
 
   const volumeM = totalVolumeCM / 1000000;
+  const volumeMFormatted = volumeM.toFixed(4); // **أربع أرقام بعد العلامة**
+
   const pricePerM3 = parseFloat(document.getElementById('pricePerM3').value) || 0;
   const totalPrice = pricePerM3 > 0 ? (volumeM * pricePerM3).toFixed(2) : 'غير محدد';
-
-  const volumeMFormatted = volumeM.toFixed(4); // ✅ أربع أرقام بعد العلامة
 
   document.getElementById('volumeCM').innerText = totalVolumeCM.toFixed(0);
   document.getElementById('volumeM').innerText = volumeMFormatted;
   document.getElementById('totalPrice').innerText = totalPrice;
 }
+
 
 function clearCalculation() {
   document.getElementById('thickness').value = '';
