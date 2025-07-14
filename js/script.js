@@ -61,7 +61,6 @@ function checkLengthWarnings() {
   const warningDiv = document.getElementById('warning');
   let hasWarning = false;
 
-  // إخفاء التنبيه القديم إذا كان موجود
   clearTimeout(checkLengthWarnings.timeout);
   warningDiv.innerHTML = '';
   warningDiv.style.display = 'none';
@@ -76,7 +75,6 @@ function checkLengthWarnings() {
 
   if (hasWarning) {
     warningDiv.style.display = 'block';
-    // إضافة حدث لزر "X"
     const closeButtons = warningDiv.getElementsByClassName('close-warning');
     for (let button of closeButtons) {
       button.onclick = () => {
@@ -84,16 +82,16 @@ function checkLengthWarnings() {
         clearTimeout(checkLengthWarnings.timeout);
       };
     }
-    // إخفاء التنبيه بعد 5 ثواني
     checkLengthWarnings.timeout = setTimeout(() => {
       warningDiv.style.display = 'none';
-    }, 3000); // 5000 مللي ثانية = 5 ثواني
+    }, 3000);
   }
 }
 
 function calculate() {
-  const thicknessMM = parseFloat(document.getElementById('thickness').value) || 0; // إدخال بالمليمتر (مثل 25 بدلاً من 2.5)
-  const thicknessCM = thicknessMM / 100; // تحويل من مليمتر إلى سنتيمتر (إزالة صفرين)
+  const thicknessMM = parseFloat(document.getElementById('thickness').value) || 0;
+  const thicknessCM = thicknessMM / 10; // ✅ التحويل من مليمتر إلى سنتيمتر
+
   const width = parseFloat(document.getElementById('width').value) || 0;
   const lengths = document.querySelectorAll('.length');
   const counts = document.querySelectorAll('.count');
@@ -109,7 +107,7 @@ function calculate() {
     };
     checkLengthWarnings.timeout = setTimeout(() => {
       warningDiv.style.display = 'none';
-    }, 5000); // 5 ثواني
+    }, 5000);
     return;
   }
 
@@ -150,8 +148,11 @@ function calculate() {
   const pricePerM3 = parseFloat(document.getElementById('pricePerM3').value) || 0;
   const totalPrice = pricePerM3 > 0 ? (volumeM * pricePerM3).toFixed(2) : 'غير محدد';
 
+  // ✅ عرض المتر المكعب بنفس ترتيب السم المكعب (4 أرقام بعد العلامة على الأقل)
+  const volumeMFormatted = volumeM.toFixed(6).slice(0, 7); // مثل: "0.0012" أو "2.3000"
+
   document.getElementById('volumeCM').innerText = totalVolumeCM.toFixed(0);
-  document.getElementById('volumeM').innerText = volumeM.toFixed(4).padStart(6, '0'); // عرض 4 أرقام عشرية مع ملء بالصفر إذا لزم
+  document.getElementById('volumeM').innerText = volumeMFormatted;
   document.getElementById('totalPrice').innerText = totalPrice;
 }
 
@@ -183,7 +184,7 @@ function toggleTheme() {
   themeButton.innerHTML = isDark ? '🌙' : '☀️';
 }
 
-window.onload = function() {
+window.onload = function () {
   updatePrevLengths();
   checkLengthWarnings();
   const savedTheme = localStorage.getItem('theme');
