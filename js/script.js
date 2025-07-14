@@ -1,3 +1,4 @@
+
 function addRow() {
   const lengthRows = document.querySelectorAll('.length-row');
   const row = document.createElement('div');
@@ -90,7 +91,7 @@ function checkLengthWarnings() {
 
 function calculate() {
   const thicknessMM = parseFloat(document.getElementById('thickness').value) || 0;
-  const thicknessCM = thicknessMM / 10; // ✅ التحويل من مليمتر إلى سنتيمتر
+  const thicknessCM = thicknessMM / 10;
 
   const width = parseFloat(document.getElementById('width').value) || 0;
   const lengths = document.querySelectorAll('.length');
@@ -148,8 +149,7 @@ function calculate() {
   const pricePerM3 = parseFloat(document.getElementById('pricePerM3').value) || 0;
   const totalPrice = pricePerM3 > 0 ? (volumeM * pricePerM3).toFixed(2) : 'غير محدد';
 
-  // ✅ عرض المتر المكعب بنفس ترتيب السم المكعب (4 أرقام بعد العلامة على الأقل)
-  const volumeMFormatted = volumeM.toFixed(6).slice(0, 7); // مثل: "0.0012" أو "2.3000"
+  const volumeMFormatted = volumeM.toFixed(4); // ✅ أربع أرقام بعد العلامة
 
   document.getElementById('volumeCM').innerText = totalVolumeCM.toFixed(0);
   document.getElementById('volumeM').innerText = volumeMFormatted;
