@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFCC80">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <title>حاسبة أبو عمارة</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>حاسبة أبو عمارة</h1>
+            <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        </div>
+        <label for="thickness">التخانة (مم)</label>
+        <input type="number" id="thickness" min="0" placeholder="التخانة (مم)" required oninput="checkLengthWarnings()">
+        <label for="width">العرض (سم)</label>
+        <input type="number" id="width" min="0" placeholder="العرض (سم)" required oninput="checkLengthWarnings()">
+        <label for="pricePerM3">سعر المتر المكعب (اختياري)</label>
+        <input type="number" id="pricePerM3" min="0" placeholder="سعر المتر المكعب (اختياري)">
+        <div id="lengths">
+            <div class="length-row">
+                <input type="number" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings()">
+                <input type="number" class="count" min="0" placeholder="العدد" required>
+                <button onclick="decreaseLength(this)">-30 سم</button>
+                <button onclick="increaseLength(this)">+30 سم</button>
+                <button onclick="removeRow(this.parentNode)">حذف</button>
+            </div>
+        </div>
+        <button onclick="addRow()">إضافة صف</button>
+        <div class="actions">
+            <button onclick="calculate()">احسب</button>
+            <button onclick="clearCalculation()" class="action-clear">مسح الحساب</button>
+        </div>
+        <div class="results">
+            <p>التكعيب (سم³): <span id="volumeCM">0</span></p>
+            <p>التكعيب (م³): <span id="volumeM">0.0000</span></p>
+            <p>السعر الكلي: <span id="totalPrice">غير محدد</span></p>
+        </div>
+        <div id="warning" class="warning"></div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
