@@ -18,19 +18,19 @@
             <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
         </div>
         <label for="thickness">التخانة (مم)</label>
-        <input type="number" id="thickness" min="0" placeholder="التخانة (مم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
+        <input type="text" inputmode="none" inputmode="none" id="thickness" min="0" placeholder="التخانة (مم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
         <label for="width">العرض (سم)</label>
-        <input type="number" id="width" min="0" placeholder="العرض (سم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
+        <input type="text" inputmode="none" id="width" min="0" placeholder="العرض (سم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
         <label for="pricePerM3">سعر المتر المكعب (اختياري)</label>
-        <input type="number" id="pricePerM3" min="0" placeholder="سعر المتر المكعب (اختياري)" inputmode="none">
+        <input type="text" inputmode="none" id="pricePerM3" min="0" placeholder="سعر المتر المكعب (اختياري)" inputmode="none">
         
         <!-- Summary Display showing thickness and width -->
         <div id="summary" class="summary"></div>
         
         <div id="lengths">
             <div class="length-row">
-                <input type="number" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="none">
-                <input type="number" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="none">
+                <input type="text" inputmode="none" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="none">
+                <input type="text" inputmode="none" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="none">
                 <button onclick="decreaseLength(this)">-30 سم</button>
                 <button onclick="increaseLength(this)">+30 سم</button>
                 <button onclick="removeRow(this.parentNode)">حذف</button>
