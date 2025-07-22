@@ -17,42 +17,91 @@
             <h1>حاسبة الخشب - أبو عمارة</h1>
             <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
         </div>
+
         <label for="thickness">التخانة (مم)</label>
-        <input type="text" inputmode="none" inputmode="none" id="thickness" min="0" placeholder="التخانة (مم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
+        <input 
+          type="text" 
+          inputmode="none" 
+          id="thickness" 
+          min="0" 
+          placeholder="التخانة (مم)" 
+          required 
+          oninput="checkLengthWarnings(); updateSummary()" 
+          onfocus="setFocusedInput(this)"
+        >
+
         <label for="width">العرض (سم)</label>
-        <input type="text" inputmode="none" id="width" min="0" placeholder="العرض (سم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
+        <input 
+          type="text" 
+          inputmode="none" 
+          id="width" 
+          min="0" 
+          placeholder="العرض (سم)" 
+          required 
+          oninput="checkLengthWarnings(); updateSummary()" 
+          onfocus="setFocusedInput(this)"
+        >
+
         <label for="pricePerM3">سعر المتر المكعب (اختياري)</label>
-        <input type="text" inputmode="none" id="pricePerM3" min="0" placeholder="سعر المتر المكعب (اختياري)" inputmode="none">
-        
+        <input 
+          type="text" 
+          inputmode="none" 
+          id="pricePerM3" 
+          min="0" 
+          placeholder="سعر المتر المكعب (اختياري)" 
+          onfocus="setFocusedInput(this)"
+        >
+
         <!-- Summary Display showing thickness and width -->
         <div id="summary" class="summary"></div>
-        
+
         <div id="lengths">
             <div class="length-row">
-                <input type="text" inputmode="none" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="none">
-                <input type="text" inputmode="none" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="none">
+                <input 
+                  type="text" 
+                  inputmode="none" 
+                  class="length" 
+                  min="0" 
+                  max="600" 
+                  placeholder="الطول (سم)" 
+                  required 
+                  oninput="checkLengthWarnings(); updateTotalQuantity()" 
+                  onfocus="setFocusedInput(this)"
+                >
+                <input 
+                  type="text" 
+                  inputmode="none" 
+                  class="count" 
+                  min="0" 
+                  placeholder="العدد" 
+                  required 
+                  oninput="updateTotalQuantity()" 
+                  onfocus="setFocusedInput(this)"
+                >
                 <button onclick="decreaseLength(this)">-30 سم</button>
                 <button onclick="increaseLength(this)">+30 سم</button>
                 <button onclick="removeRow(this.parentNode)">حذف</button>
             </div>
         </div>
-        
+
         <!-- Total Quantity Display -->
         <div id="totalQuantity" class="total-quantity"></div>
-        
+
         <button onclick="addRow()">إضافة صف</button>
         <div class="actions">
             <button onclick="calculate()">احسب</button>
             <button onclick="clearCalculation()" class="action-clear">مسح الحساب</button>
         </div>
+
         <div class="results">
             <p>التكعيب (سم³): <span id="volumeCM">0</span></p>
             <p>التكعيب (م³): <span id="volumeM">0.0000</span></p>
             <p>السعر الكلي: <span id="totalPrice">غير محدد</span></p>
         </div>
+
         <div id="warning" class="warning"></div>
     </div>
-    
+
     <!-- Custom Number Pad -->
     <div class="number-pad-container" id="numberPadContainer">
         <div class="number-pad">
@@ -70,10 +119,10 @@
             <button class="enter-btn" data-value="enter">✓</button>
         </div>
     </div>
-    
+
     <!-- Number Pad Toggle Button -->
     <button class="number-pad-toggle" id="numberPadToggle">123</button>
-    
+
     <script src="js/script.js"></script>
 </body>
 </html>
