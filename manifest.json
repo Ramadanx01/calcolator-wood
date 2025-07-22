@@ -1,0 +1,20 @@
+{
+  "name": "حاسبة الخشب - أبو عمارة",
+  "short_name": "حاسبة الخشب",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#3182ce",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/Icon.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
