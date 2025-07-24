@@ -65,7 +65,7 @@ body.dark label {
   color: #cbd5e0;
 }
 
-input[type="number"], input[type="text"] {
+input[type="number"], input[type="text"], input[type="tel"] {
   width: 100%;
   max-width: 300px;
   padding: 12px;
@@ -79,19 +79,19 @@ input[type="number"], input[type="text"] {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-input[type="number"]:focus, input[type="text"]:focus {
+input[type="number"]:focus, input[type="text"]:focus, input[type="tel"]:focus {
   border-color: #4299e1;
   outline: none;
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
 }
 
-body.dark input[type="number"], body.dark input[type="text"] {
+body.dark input[type="number"], body.dark input[type="text"], body.dark input[type="tel"] {
   background: #2d3748;
   border-color: #4a5568;
   color: #f7fafc;
 }
 
-body.dark input[type="number"]:focus, body.dark input[type="text"]:focus {
+body.dark input[type="number"]:focus, body.dark input[type="text"]:focus, body.dark input[type="tel"]:focus {
   border-color: #63b3ed;
   box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
 }
