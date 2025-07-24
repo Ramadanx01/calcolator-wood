@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>حاسبة الخشب - أبو عمارة</title>
 </head>
+
+
 <body>
     <div class="container">
         <div class="header">
@@ -18,19 +20,23 @@
             <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
         </div>
         <label for="thickness">التخانة (مم)</label>
-        <input type="number" id="thickness" min="0" placeholder="التخانة (مم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
+        <input type="tel" id="thickness" min="0" placeholder="التخانة (مم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="numeric" pattern="[0-9]*">
+        
         <label for="width">العرض (سم)</label>
-        <input type="number" id="width" min="0" placeholder="العرض (سم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="none">
+        <input type="tel" id="width" min="0" placeholder="العرض (سم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="numeric" pattern="[0-9]*">
+        
         <label for="pricePerM3">سعر المتر المكعب (اختياري)</label>
-        <input type="number" id="pricePerM3" min="0" placeholder="سعر المتر المكعب (اختياري)" inputmode="none">
+        <input type="tel" id="pricePerM3" min="0" placeholder="سعر المتر المكعب (اختياري)" inputmode="numeric" pattern="[0-9]*">
         
         <!-- Summary Display showing thickness and width -->
         <div id="summary" class="summary"></div>
         
         <div id="lengths">
             <div class="length-row">
-                <input type="number" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="none">
-                <input type="number" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="none">
+                <input type="tel" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*">
+                
+                <input type="tel" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*">
+                
                 <button onclick="decreaseLength(this)">-30 سم</button>
                 <button onclick="increaseLength(this)">+30 سم</button>
                 <button onclick="removeRow(this.parentNode)">حذف</button>
