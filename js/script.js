@@ -7,14 +7,14 @@ function addRow() {
   const row = document.createElement('div');
   row.className = 'length-row';
   row.innerHTML = `
-    <input type="number" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="none" />
+    <input type="tel" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*" />
     ${lengthRows.length === 0 ? `
-      <input type="number" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="none" />
+      <input type="tel" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*" />
       <button onclick="decreaseLength(this)">-30 سم</button>
       <button onclick="increaseLength(this)">+30 سم</button>
     ` : `
       <input type="text" class="prev-length" readonly placeholder="الطول السابق" />
-      <input type="number" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="none" />
+      <input type="tel" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*" />
       <button onclick="increaseLength(this)">+30 سم</button>
     `}
     <button onclick="removeRow(this.parentNode)">حذف</button>
@@ -95,8 +95,7 @@ function checkLengthWarnings() {
       warningDiv.style.display = 'none';
     }, 3000);
   }
-  
-  // Update summary whenever length warnings are checked
+
   updateSummary();
 }
 
@@ -128,7 +127,7 @@ function calculate() {
   }
 
   const volumeM = totalVolumeCM / 1000000;
-  const volumeMFormatted = volumeM.toFixed(4); // **أربع أرقام بعد العلامة**
+  const volumeMFormatted = volumeM.toFixed(4);
 
   const pricePerM3 = parseFloat(document.getElementById('pricePerM3').value) || 0;
   const totalPrice = pricePerM3 > 0 ? (volumeM * pricePerM3).toFixed(2) : 'غير محدد';
@@ -136,8 +135,7 @@ function calculate() {
   document.getElementById('volumeCM').innerText = totalVolumeCM.toFixed(0);
   document.getElementById('volumeM').innerText = volumeMFormatted;
   document.getElementById('totalPrice').innerText = totalPrice;
-  
-  // Add success animation to results
+
   const resultsDiv = document.querySelector('.results');
   resultsDiv.classList.add('success-animation');
   setTimeout(() => {
@@ -151,8 +149,8 @@ function clearCalculation() {
   document.getElementById('pricePerM3').value = '';
   document.getElementById('lengths').innerHTML = `
     <div class="length-row">
-      <input type="number" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="none" />
-      <input type="number" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="none" />
+      <input type="tel" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*" />
+      <input type="tel" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*" />
       <button onclick="decreaseLength(this)">-30 سم</button>
       <button onclick="increaseLength(this)">+30 سم</button>
       <button onclick="removeRow(this.parentNode)">حذف</button>
@@ -163,8 +161,6 @@ function clearCalculation() {
   document.getElementById('totalPrice').innerText = 'غير محدد';
   document.getElementById('summary').innerHTML = '';
   document.getElementById('totalQuantity').innerHTML = '';
-  
-  // Setup input listeners for the new row
   setupInputListeners();
 }
 
@@ -176,12 +172,11 @@ function toggleTheme() {
   themeButton.innerHTML = isDark ? '🌙' : '☀️';
 }
 
-// New function to update the summary display
 function updateSummary() {
   const thicknessMM = parseFloat(document.getElementById('thickness').value) || 0;
   const width = parseFloat(document.getElementById('width').value) || 0;
   const summaryDiv = document.getElementById('summary');
-  
+
   if (thicknessMM > 0 && width > 0) {
     summaryDiv.innerHTML = `التخانة: ${thicknessMM} مم, العرض: ${width} سم`;
     summaryDiv.style.display = 'block';
@@ -191,15 +186,14 @@ function updateSummary() {
   }
 }
 
-// New function to calculate and update total quantity of wood pieces
 function updateTotalQuantity() {
   const counts = document.querySelectorAll('.count');
   let totalCount = 0;
-  
+
   counts.forEach(input => {
     totalCount += parseInt(input.value) || 0;
   });
-  
+
   const totalQuantityDiv = document.getElementById('totalQuantity');
   if (totalCount > 0) {
     totalQuantityDiv.innerHTML = `مجموع قطع الخشب: ${totalCount}`;
@@ -210,50 +204,37 @@ function updateTotalQuantity() {
   }
 }
 
-// Setup custom number pad functionality
 function setupNumberPad() {
   const numberPadToggle = document.getElementById('numberPadToggle');
   const numberPadContainer = document.getElementById('numberPadContainer');
   const numButtons = document.querySelectorAll('.num-btn');
   const clearBtn = document.querySelector('.clear-btn');
   const enterBtn = document.querySelector('.enter-btn');
-  
-  // Toggle number pad visibility
+
   numberPadToggle.addEventListener('click', () => {
     numberPadVisible = !numberPadVisible;
-    if (numberPadVisible) {
-      numberPadContainer.classList.add('active');
-    } else {
-      numberPadContainer.classList.remove('active');
-    }
+    numberPadContainer.classList.toggle('active', numberPadVisible);
   });
-  
-  // Handle number buttons click
+
   numButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       if (activeInput) {
         const digit = btn.getAttribute('data-value');
         activeInput.value = (activeInput.value || '') + digit;
-        
-        // Trigger the appropriate events based on the input type
         const event = new Event('input', { bubbles: true });
         activeInput.dispatchEvent(event);
       }
     });
   });
-  
-  // Handle clear button click
+
   clearBtn.addEventListener('click', () => {
     if (activeInput) {
       activeInput.value = '';
-      
-      // Trigger the appropriate events
       const event = new Event('input', { bubbles: true });
       activeInput.dispatchEvent(event);
     }
   });
-  
-  // Handle enter button click
+
   enterBtn.addEventListener('click', () => {
     if (activeInput) {
       activeInput.blur();
@@ -262,32 +243,27 @@ function setupNumberPad() {
       numberPadVisible = false;
     }
   });
-  
+
   setupInputListeners();
 }
 
-// Setup input field listeners for the number pad
 function setupInputListeners() {
-  const allInputs = document.querySelectorAll('input[type="number"]');
-  
+  const allInputs = document.querySelectorAll('input[type="number"], input[type="tel"]');
+
   allInputs.forEach(input => {
-    // Remove existing event listeners if any
     input.removeEventListener('focus', inputFocusHandler);
-    
-    // Add new event listener
     input.addEventListener('focus', inputFocusHandler);
   });
 }
 
 function inputFocusHandler(e) {
   activeInput = e.target;
-  
+
   if (numberPadVisible) {
     document.getElementById('numberPadContainer').classList.add('active');
   }
-  
-  // Prevent default keyboard on mobile
-  activeInput.addEventListener('click', function(e) {
+
+  activeInput.addEventListener('click', function (e) {
     if (numberPadVisible) {
       e.preventDefault();
       this.blur();
@@ -302,13 +278,13 @@ window.onload = function () {
   updateSummary();
   updateTotalQuantity();
   setupNumberPad();
-  
+
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     document.body.classList.add('dark');
     document.querySelector('.theme-toggle').innerHTML = '🌙';
   }
-  
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
       .then(() => console.log('Service Worker Registered'))
