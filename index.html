@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="محمد بدوي">
+    <meta name="theme-color" content="#3182ce">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>حاسبة الخشب - محمد بدوي</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>حاسبة الخشب - محمد بدوي</h1>            
+            <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        </div>
+        <label for="thickness">التخانة (مم)</label>
+        <input type="tel" id="thickness" min="0" placeholder="التخانة (مم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="numeric" pattern="[0-9]*">
+        
+        <label for="width">العرض (سم)</label>
+        <input type="tel" id="width" min="0" placeholder="العرض (سم)" required oninput="checkLengthWarnings(); updateSummary()" inputmode="numeric" pattern="[0-9]*">
+        
+        <label for="pricePerM3">سعر المتر المكعب (اختياري)</label>
+        <input type="tel" id="pricePerM3" min="0" placeholder="سعر المتر المكعب (اختياري)" inputmode="numeric" pattern="[0-9]*">
+        
+        <!-- Summary Display showing thickness and width -->
+        <div id="summary" class="summary"></div>
+        
+        <div id="lengths">
+            <div class="length-row">
+                <input type="tel" class="length" min="0" max="600" placeholder="الطول (سم)" required oninput="checkLengthWarnings(); updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*">
+                
+                <input type="tel" class="count" min="0" placeholder="العدد" required oninput="updateTotalQuantity()" inputmode="numeric" pattern="[0-9]*">
+                
+                <button onclick="decreaseLength(this)">-30 سم</button>
+                <button onclick="increaseLength(this)">+30 سم</button>
+                <button onclick="removeRow(this.parentNode)">حذف</button>
+            </div>
+        </div>
+        
+        <!-- Total Quantity Display -->
+        <div id="totalQuantity" class="total-quantity"></div>
+        
+        <button onclick="addRow()">إضافة صف</button>
+        <div class="actions">
+            <button onclick="calculate()">احسب</button>
+            <button onclick="clearCalculation()" class="action-clear">مسح الحساب</button>
+        </div>
+        <div class="results">
+            <p>التكعيب (سم³): <span id="volumeCM">0</span></p>
+            <p>التكعيب (م³): <span id="volumeM">0.0000</span></p>
+            <p>السعر الكلي: <span id="totalPrice">غير محدد</span></p>
+        </div>
+        <div id="warning" class="warning"></div>
+    </div>
+    
+    <!-- Custom Number Pad -->
+    <div class="number-pad-container" id="numberPadContainer">
+        <div class="number-pad">
+            <button class="num-btn" data-value="3">3</button>
+            <button class="num-btn" data-value="2">2</button>
+            <button class="num-btn" data-value="1">1</button>
+            <button class="num-btn" data-value="6">6</button>
+            <button class="num-btn" data-value="5">5</button>
+            <button class="num-btn" data-value="4">4</button>
+            <button class="num-btn" data-value="9">9</button>
+            <button class="num-btn" data-value="8">8</button>
+            <button class="num-btn" data-value="7">7</button>
+            <button class="clear-btn" data-value="clear">C</button>
+            <button class="num-btn" data-value="0">0</button>
+            <button class="enter-btn" data-value="enter">✓</button>
+        </div>
+    </div>
+    
+    <!-- Number Pad Toggle Button -->
+    <button class="number-pad-toggle" id="numberPadToggle">123</button>
+
+    <footer style="text-align:center; margin-top: 30px; font-size: 0.9em; color: gray;">
+        &copy; جميع الحقوق محفوظة - محمد بدوي 2025
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
